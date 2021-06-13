@@ -4,7 +4,7 @@
     <div class="container">
       <div class="header-title">
         <img class="header-logo" src="@/assets/headerlogo.png" alt="logo" />
-        <h2 class="header-title">GIF SEARCH</h2>
+        <h2 class="header-title" v-if="!isMinimum">GIF SEARCH</h2>
       </div>
       <div class="search-header">
         <input
@@ -43,10 +43,10 @@ export default {
       this.$emit("searchAPI", this.search);
     },
     changeSize() {
-      this.isMinimum = window.innerWidth > 720 ? false : true;
+      this.isMinimum = window.innerWidth > 640 ? false : true;
     },
     trendClick() {
-      location.reload()
+      location.reload();
     },
   },
 };

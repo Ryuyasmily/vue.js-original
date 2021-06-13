@@ -5,7 +5,9 @@
     <div class="main-layout">
       <SideMenu />
       <Body>
-        <router-view :gifImageList="gifImageList" />
+        <transition>
+          <router-view :gifImageList="gifImageList" />
+        </transition>
       </Body>
     </div>
   </div>
@@ -38,6 +40,9 @@ export default {
     // Giphyで検索をかける
     searchAPI(text) {
       this.isLoading = true;
+      // ここで初期化
+      this.gifImageList = {};
+      // 検索
       this.$gf
         .search(text, {
           sort: "relevant",
@@ -54,6 +59,8 @@ export default {
     // Giphyで検索をかける
     trendAPI() {
       this.isLoading = true;
+      // ここで初期化
+      this.gifImageList = {};
       this.$gf.trending({ limit: 30 }).then((d) => {
         this.gifImageList = d;
         this.isLoading = false;
@@ -105,5 +112,19 @@ a {
 
 ul {
   list-style: none;
+}
+
+.v-enter-active {
+  transition: all 0.8s ease;
+}
+
+.v-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.v-enter,
+.v-leave-to {
+  transform: translateX(30px);
+  opacity: 0;
 }
 </style>

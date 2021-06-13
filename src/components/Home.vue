@@ -1,14 +1,16 @@
 <template>
   <div class="main">
     <ul class="list-video">
-      <li class="card" v-for="(gif, idx) in gifImageList.data" :key="idx">
-        <img class="imager" :src="gif.images.original.url" />
-        <div class="layout">
-          <div class="text">
-            <p class="title">{{gif.title}}</p>
+      <transition-group tag="li" class="list" name="vue-anime-list">
+        <li class="card" v-for="(gif, idx) in gifImageList.data" :key="idx">
+          <img class="imager" :src="gif.images.original.url" />
+          <div class="layout">
+            <div class="text">
+              <p class="title">{{ gif.title }}</p>
+            </div>
           </div>
-        </div>
-      </li>
+        </li>
+      </transition-group>
     </ul>
   </div>
 </template>
@@ -46,14 +48,10 @@ export default {
   display: flex;
 }
 
-.list-video {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.list-video > li {
-  width: 23%;
-  margin: 20px 20px 50px 0px;
+.card {
+  height: 250px;
+  width: 300px;
+  margin: 8px;
   transition: 0.5s;
 }
 
@@ -107,5 +105,23 @@ export default {
   background-color: rgba(0, 0, 50, 0.5);
   border-radius: 8px;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+list-video,
+.list {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.vue-anime-list-enter-active,
+.vue-anime-list-leave-to {
+  opacity: 0;
+}
+.vue-anime-list-enter-to,
+.vue-anime-list-leave-active {
+  opacity: 1;
 }
 </style>
